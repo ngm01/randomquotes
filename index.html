@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Random Quotes</title>
+    </head>
+    <body>
+        <div class="container">
+            <p id="displayQuote"></p>
+            <p id="author"></p>
+            <button id="getQuote" onclick="getQuote()">Click me for a random quote</button>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        API_KEY = "" //your LibraryThing API key goes here
+        function getQuote(){
+            fetch('http://www.librarything.com/services/rest/1.1/?method=librarything.ck.getwork&id=4041453&apikey=' + API_KEY)
+            .then(res => res.text())
+            .then(xmlText => (new window.DOMParser()).parseFromString(xmlText, "text/xml"))
+            .then((xmlFormat) => {
+               console.log(xmlFormat);
+                }
+            )}
+    </script>
+</html>
