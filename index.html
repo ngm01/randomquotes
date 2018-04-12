@@ -2,34 +2,64 @@
 <html>
     <head>
         <title>Random Quotes</title>
+        <style>
+            #title{
+                font-style: italic;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
             <p id="displayQuote"></p>
-            <p id="author"></p>
-            <button id="getQuote" onclick="getQuote()">Click me for a random quote</button>
+            <p id="authorAndQuote"><span id="author"></span><span id="title"></span></p>
+            <button id="getQuote" onclick="getNewQuote()">Click me for a random quote</button>
         </div>
     </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="worklist.js"></script> 
     <script>
         const API_KEY = ""; //your LibraryThing API key goes here
-        workId = "4041453";
-        function getQuote(){
+        function getNewQuote(){
+            workId = worklist[getRandomIndex(worklist)];
             fetch('http://www.librarything.com/services/rest/1.1/?method=librarything.ck.getwork&id='+ workId + '&apikey=' + API_KEY)
             .then(res => res.text())
             .then(xmlText => (new window.DOMParser()).parseFromString(xmlText, "text/xml"))
             .then((xmlDoc) => {
-                console.log(xmlDoc);
+                //console.log(xmlDoc);
                 let fields = xmlDoc.getElementsByTagName("field");
-                let relevantFields = [10, 14, 15];
-                let randomField =  relevantFields[Math.floor(Math.random() * relevantFields.length)];
-                let selectedField = fields[randomField];
-                let factFields = selectedField.getElementsByTagName("fact");
-                let randomFactIdx = Math.floor(Math.random() * factFields.length);
-                let randomQuote = factFields[randomFactIdx].childNodes[0].nodeValue;
-                randomQuoteCleaned = randomQuote.replace(/(\!\[CDATA\[)|(\]\]\>)/g, "");
-                document.getElementById("displayQuote").innerText = randomQuoteCleaned;
+                let fieldsWithQuotes = getQuotableFields(fields);
+                if(fieldsWithQuotes.length > 0){
+                    let author = xmlDoc.getElementsByTagName("author")[0].childNodes[0].nodeValue;
+                    let title = xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+                    let randomField = fieldsWithQuotes[getRandomIndex(fieldsWithQuotes)];
+                    let selectedField = fields[randomField];
+                    let factFields = selectedField.getElementsByTagName("fact");
+                    let randomFactIdx = getRandomIndex(factFields);
+                    let randomQuote = factFields[randomFactIdx].childNodes[0].nodeValue;
+                    randomQuoteCleaned = randomQuote.replace(/(\!\[CDATA\[)|(\]\]\>)/g, "");
+                    document.getElementById("displayQuote").innerHTML = randomQuoteCleaned;
+                    document.getElementById("author").innerText = "- " + author;
+                    document.getElementById("title").innerText = ", " + title;
+                }
+                else{
+                    console.log("No quotes from that book.")
+                    getNewQuote();
+                }
             }
             )}
+
+            function getRandomIndex(iterable){
+                return Math.floor(Math.random() * iterable.length);
+            }
+
+            function getQuotableFields(fields){
+                let haveQuotes = [];
+                for(let i=0;i<fields.length;i++){
+                    let currentField = fields[i].attributes[1].nodeValue;
+                    if(['quotations', 'firstwords', 'lastwords'].includes(currentField)){
+                        haveQuotes.push(i);
+                    }
+                }
+                return haveQuotes;
+            }
     </script>
 </html>
