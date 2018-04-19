@@ -10,9 +10,12 @@
     </head>
     <body>
         <div class="container">
-            <p id="quote"></p>
-            <p id="authorAndTitle"><span id="author"></span><span id="title"></span></p>
+            <div id="quote">
+                <p id="quoteText"></p>
+                <p id="authorAndTitle"><span id="author"></span><span id="title"></span></p>
+            </div>
             <button id="getQuote" onclick="getNewQuote()">Click me for a random quote</button>
+            <button id="tweetQuote" onclick="tweetQuote()">Tweet this quote</button>
         </div>
     </body>
     <script type="text/javascript" src="worklist.js"></script> 
@@ -34,7 +37,7 @@
                     let randomFactIdx = getRandomIndex(factFields);
                     let randomQuote = factFields[randomFactIdx].childNodes[0].nodeValue;
                     randomQuoteCleaned = randomQuote.replace(/(\!\[CDATA\[)|(\]\]\>)/g, "");
-                    document.getElementById("quote").innerHTML = randomQuoteCleaned;
+                    document.getElementById("quoteText").innerHTML = randomQuoteCleaned;
                     document.getElementById("author").innerText = "- " + getNodeValueFromUniqueXMLTag(xmlDoc, "author");
                     document.getElementById("title").innerText = ", " + getNodeValueFromUniqueXMLTag(xmlDoc, "title");
                 }
@@ -44,6 +47,11 @@
                 }
             }
             )}
+
+            function tweetQuote(){
+                let quote = document.getElementById("quote").innerText;
+                window.open("https://twitter.com/intent/tweet?text=" + quote, '_blank', 'width=500,height=500')
+            }
 
             function getRandomIndex(iterable){
                 return Math.floor(Math.random() * iterable.length);
