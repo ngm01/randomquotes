@@ -1,0 +1,58 @@
+body{
+    background-color: aliceblue;
+}
+#all-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12em;
+}
+#quote-wrapper{
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: lightsteelblue;
+    padding: 1em;
+    border-radius: 5em 0em 8em 0em;
+    color: floralwhite;
+}
+#quote{
+    font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+    margin-left: 1em;
+    margin-right: 1em;
+    flex-direction: column;
+    font-size: 1.5em;
+}
+#title{
+    font-style: italic;
+}
+#buttons{
+    flex-direction: row;
+}
+button{
+    font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+    margin: 1em;
+    padding: 1em;
+    border-bottom-right-radius: 1em;
+    border-top-left-radius: 1em;
+    border: none;
+    background-color: lightsteelblue;
+    color: ghostwhite;
+    font-size: 1.25em;
+}
+button:hover{
+    cursor: pointer;
+    background-color: white;
+    color: lightsteelblue;
+}
+button:focus{
+    outline: none;
+}
+#big-quotemark{
+    font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, "serif";
+    font-style: italic;
+    font-size: 7em;
+}
+

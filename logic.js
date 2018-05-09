@@ -1,4 +1,5 @@
 const API_KEY = ""; //your LibraryThing developer key goes here
+window.onload = getNewQuote();
 function getNewQuote(){
     workId = worklist[getRandomIndex(worklist)];
     fetch('http://www.librarything.com/services/rest/1.1/?method=librarything.ck.getwork&id='+ workId + '&apikey=' + API_KEY)

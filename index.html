@@ -2,20 +2,21 @@
 <html>
     <head>
         <title>Random Quotes</title>
-        <style>
-            #title{
-                font-style: italic;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <div class="container">
-            <div id="quote">
-                <p id="quoteText"></p>
-                <p id="authorAndTitle"><span id="author"></span><span id="title"></span></p>
+        <div id="all-wrapper">
+            <div id="quote-wrapper">
+                <div id="big-quotemark">"</div>
+                <div id="quote">
+                    <p id="quoteText"></p>
+                    <p id="authorAndTitle"><span id="author"></span><span id="title"></span></p>
+                </div>
             </div>
-            <button id="getQuote" onclick="getNewQuote()">Click me for a random quote</button>
-            <button id="tweetQuote" onclick="tweetQuote()">Tweet this quote</button>
+            <div id="buttons">
+                <button id="getQuote" onclick="getNewQuote()">Click me for a random quote</button>
+                <button id="tweetQuote" onclick="tweetQuote()">Tweet this quote</button>
+            </div>
         </div>
     </body>
     <script type="text/javascript" src="worklist.js"></script> 
