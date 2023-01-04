@@ -1,6 +1,8 @@
 # randomquotes
 A Random Quotes Generator.
 
+## UPDATE 2023: LibraryThing has discontinued their API, so this little tool is unfortunately dead.
+
 Pulls a random quote from a book on the Guardian's list of *[1000 Novels Everyone Must Read.](https://www.theguardian.com/books/2009/jan/23/bestbooks-fiction)*
 
 Quotes supplied by the [LibraryThing Web Services API](http://www.librarything.com/services/rest/documentation/1.1/).
